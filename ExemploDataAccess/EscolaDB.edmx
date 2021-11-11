@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EscolaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Matricula" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DataNascimento" Type="date" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Telefone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroTelefone" Type="varchar" MaxLength="20" />
+          <Property Name="AlunoId" Type="int" />
+          <Property Name="Prefixo" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'EscolaDB.dbo.vw_AlunosQueComecamComA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_AlunosQueComecamComA">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Matricula" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="DataNascimento" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Matricula" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DataNascimento" Type="date" Nullable="false" />
+          <Property Name="Sexo" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK__Telefone__AlunoI__25869641">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="0..1" />
+          <End Role="Telefone" Type="Self.Telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Telefone">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EscolaDBModelStoreContainer">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefone" EntityType="Self.Telefone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_AlunosQueComecamComA" EntityType="Self.vw_AlunosQueComecamComA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_AlunosQueComecamComA].[Id] AS [Id], 
+    [vw_AlunosQueComecamComA].[Matricula] AS [Matricula], 
+    [vw_AlunosQueComecamComA].[Nome] AS [Nome], 
+    [vw_AlunosQueComecamComA].[DataNascimento] AS [DataNascimento], 
+    [vw_AlunosQueComecamComA].[Sexo] AS [Sexo]
+    FROM [dbo].[vw_AlunosQueComecamComA] AS [vw_AlunosQueComecamComA]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Telefone__AlunoI__25869641" Association="Self.FK__Telefone__AlunoI__25869641">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Telefone" EntitySet="Telefone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EscolaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Matricula" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataNascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Telefones" Relationship="Self.FK__Telefone__AlunoI__25869641" FromRole="Aluno" ToRole="Telefone" />
+        </EntityType>
+        <EntityType Name="Telefone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroTelefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AlunoId" Type="Int32" />
+          <Property Name="Prefixo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Aluno" Relationship="Self.FK__Telefone__AlunoI__25869641" FromRole="Telefone" ToRole="Aluno" />
+        </EntityType>
+        <EntityType Name="vw_AlunosQueComecamComA">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Matricula" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="DataNascimento" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Matricula" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataNascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Telefone__AlunoI__25869641">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="0..1" />
+          <End Role="Telefone" Type="Self.Telefone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Telefone">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EscolaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alunoes" EntityType="Self.Aluno" />
+          <EntitySet Name="Telefones" EntityType="Self.Telefone" />
+          <EntitySet Name="vw_AlunosQueComecamComA" EntityType="Self.vw_AlunosQueComecamComA" />
+          <AssociationSet Name="FK__Telefone__AlunoI__25869641" Association="Self.FK__Telefone__AlunoI__25869641">
+            <End Role="Aluno" EntitySet="Alunoes" />
+            <End Role="Telefone" EntitySet="Telefones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EscolaDBModelStoreContainer" CdmEntityContainer="EscolaDBEntities">
+          <EntitySetMapping Name="Alunoes">
+            <EntityTypeMapping TypeName="EscolaDBModel.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefones">
+            <EntityTypeMapping TypeName="EscolaDBModel.Telefone">
+              <MappingFragment StoreEntitySet="Telefone">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroTelefone" ColumnName="NumeroTelefone" />
+                <ScalarProperty Name="AlunoId" ColumnName="AlunoId" />
+                <ScalarProperty Name="Prefixo" ColumnName="Prefixo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_AlunosQueComecamComA">
+            <EntityTypeMapping TypeName="EscolaDBModel.vw_AlunosQueComecamComA">
+              <MappingFragment StoreEntitySet="vw_AlunosQueComecamComA">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
