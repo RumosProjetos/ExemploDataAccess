@@ -1,7 +1,6 @@
 ﻿using StackExchange.Profiling;
 using System;
 using System.IO;
-using StackExchange.Profiling.EntityFramework6;
 
 namespace ConsoleDatabaseFirst
 {
