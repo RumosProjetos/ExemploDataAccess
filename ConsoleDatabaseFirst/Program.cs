@@ -3,9 +3,8 @@ using StackExchange.Profiling.EntityFramework6;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleDatabaseFirst
 {
@@ -18,27 +17,23 @@ namespace ConsoleDatabaseFirst
 
             using (profiler.Step("Main Work"))
             {
-                //ObterTodosOsAlunos();
+                ObterTodosOsAlunos();
                 ObterTodosOsAlunosComIdade();
-                //ObterTodosOsAlunosQueComecemCom("A");
-                //ObterTodosOsAlunosQuePossuemTelefone();
-                //CriarNovoAluno();
-                //CriarNovoAlunoComTelefone();
-                //CriarNovoAlunoCom3Telefone3();
-                //AtualizarDados();
-                //NormalizarDadosDosAlunos();
-                //ApagarOPedro();
-                //ApagarAMarta();
+                ObterTodosOsAlunosQueComecemCom("A");
+                ObterTodosOsAlunosQuePossuemTelefone();
+                CriarNovoAluno();
+                CriarNovoAlunoComTelefone();
+                CriarNovoAlunoCom3Telefone3();
+                AtualizarDados();
+                NormalizarDadosDosAlunos();
+                ApagarOPedro();
+                ApagarAMarta();
             }
 
-            System.IO.File.WriteAllText($@"c:\temp\profile.txt", profiler.RenderPlainText());
+            var path = $@"c:\temp\{DateTime.Today:yyyyMMddHHmm}_Profiler.log";            
+            File.WriteAllText(path, profiler.RenderPlainText());
             Console.WriteLine("Terminei");
             Console.ReadLine();
-        }
-
-        private static void ImprimirSeparador()
-        {
-            Console.WriteLine("------------------------------------------------");
         }
 
         #region Consulta
@@ -52,7 +47,7 @@ namespace ConsoleDatabaseFirst
                 Console.WriteLine($"Nome: {aluno.Nome}");
             }
 
-            ImprimirSeparador();
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
         private static void ObterTodosOsAlunosComIdade()
@@ -65,8 +60,9 @@ namespace ConsoleDatabaseFirst
                 Console.WriteLine($"Nome: {aluno.Nome} - Idade: {aluno.Idade}");
             }
 
-            ImprimirSeparador();
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
+
 
         private static void ObterTodosOsAlunosQueComecemCom(string inicio)
         {
@@ -78,7 +74,7 @@ namespace ConsoleDatabaseFirst
                 Console.WriteLine($"Nome: {aluno.Nome}");
             }
 
-            ImprimirSeparador();
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
         private static void ObterTodosOsAlunosQuePossuemTelefone()
@@ -91,7 +87,7 @@ namespace ConsoleDatabaseFirst
                 Console.WriteLine($"Nome: {aluno.Nome}");
             }
 
-            ImprimirSeparador();
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
         #endregion Consulta
 
@@ -110,6 +106,8 @@ namespace ConsoleDatabaseFirst
             var escola = new EscolaDBEntities();
             escola.Aluno.Add(lucas);
             escola.SaveChanges();
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
         private static void CriarNovoAlunoComTelefone()
@@ -135,6 +133,8 @@ namespace ConsoleDatabaseFirst
             var escola = new EscolaDBEntities();
             escola.Aluno.Add(maria);
             escola.SaveChanges();
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
         private static void CriarNovoAlunoCom3Telefone3()
@@ -170,36 +170,56 @@ namespace ConsoleDatabaseFirst
             var escola = new EscolaDBEntities();
             escola.Aluno.Add(maria);
             escola.SaveChanges();
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
         #endregion Insercao
 
         #region Atualizacao
         private static void AtualizarDados()
         {
-            var id = 2;
-            var escola = new EscolaDBEntities();
-            var pedro = escola.Aluno.FirstOrDefault(x => x.Id == id);
-            pedro.Nome = "Pedro de Sousa";
-            escola.SaveChanges();
+            try
+            {
+                var id = 2;
+                var escola = new EscolaDBEntities();
+                var pedro = escola.Aluno.FirstOrDefault(x => x.Id == id);
+                pedro.Nome = "Pedro de Sousa";
+                escola.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
+            }
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
 
         private static void NormalizarDadosDosAlunos()
         {
-            var escola = new EscolaDBEntities();
-            var alunos = escola.Aluno.ToList();
-
-            foreach (var aluno in alunos)
+            try
             {
-                aluno.Nome = ConvertInicialMaiuscula(aluno.Nome);
+                var escola = new EscolaDBEntities();
+                var alunos = escola.Aluno.ToList();
 
-                if (aluno.DataMatricula == null)
+                foreach (var aluno in alunos)
                 {
-                    aluno.DataMatricula = DateTime.Today;
+                    aluno.Nome = ConvertInicialMaiuscula(aluno.Nome);
+
+                    if (aluno.DataMatricula == null)
+                    {
+                        aluno.DataMatricula = DateTime.Today;
+                    }
                 }
+
+                escola.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
             }
 
-            escola.SaveChanges();
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
 
@@ -216,26 +236,43 @@ namespace ConsoleDatabaseFirst
         #region ApagarDados
         private static void ApagarOPedro()
         {
-            var id = 2;
-            var escola = new EscolaDBEntities();
-            var pedro = escola.Aluno.FirstOrDefault(x => x.Id == id);
-            escola.Aluno.Remove(pedro);
+            try
+            {
+                var id = 2;
+                var escola = new EscolaDBEntities();
+                var pedro = escola.Aluno.FirstOrDefault(x => x.Id == id);
+                escola.Aluno.Remove(pedro);
 
-            escola.SaveChanges();
+                escola.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
+            }
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
 
 
 
         private static void ApagarAMarta()
         {
-            var id = 8;
-            var escola = new EscolaDBEntities();
-            var marta = escola.Aluno.FirstOrDefault(x => x.Id == id);
-            escola.Telefone.RemoveRange(marta.Telefone); //Se eu não configurar o UpdateCascade no Database
-            escola.Aluno.Remove(marta);
-            
+            try
+            {
+                var id = 8;
+                var escola = new EscolaDBEntities();
+                var marta = escola.Aluno.FirstOrDefault(x => x.Id == id);
+                escola.Telefone.RemoveRange(marta.Telefone); //Se eu não configurar o UpdateCascade no Database
+                escola.Aluno.Remove(marta);
 
-            escola.SaveChanges();
+                escola.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.Message);
+            }
+
+            Logger.ImprimirSeparador(System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
         #endregion ApagarDados
 
