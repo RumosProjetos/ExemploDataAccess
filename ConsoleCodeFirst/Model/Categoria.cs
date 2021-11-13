@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleCodeFirst.Model
 {
-    [Table("Plataforms")]
-    public class Plataforma
+    [Table("Category")]
+    public class Categoria
     {
         [Key]
         [Required]
@@ -15,7 +19,5 @@ namespace ConsoleCodeFirst.Model
         [MaxLength(255)]
         [Column("Name")]
         public string Nome { get; set; }
-
-        public virtual ICollection<Jogo> Jogos { get; set; }
     }
 }

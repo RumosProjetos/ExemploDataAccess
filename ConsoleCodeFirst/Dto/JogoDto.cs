@@ -3,6 +3,6 @@
     public class JogoDto
     {
         public string Nome { get; set; }
-        public string TipoJogo { get; set; }
+        public string Categoria { get; set; }
     }
 }

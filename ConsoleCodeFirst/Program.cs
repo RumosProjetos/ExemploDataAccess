@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleCodeFirst.Controller;
+using ConsoleCodeFirst.Model;
+using System;
 
 namespace ConsoleCodeFirst
 {
@@ -10,6 +8,34 @@ namespace ConsoleCodeFirst
     {
         static void Main(string[] args)
         {
+            var app = new JogoController();
+
+            //ExemploAdicao
+            var jogoNovo = new Jogo
+            {
+                Nome = "God Of War"
+            };
+            app.AdicionarJogo(jogoNovo);
+
+            //Exemplo Edição
+            app.AtualizarJogo(jogoNovo.Id, new Dto.JogoDto { Nome = "Deus da Guerra", Categoria = "Ação" });
+
+            //Exemplo apagar
+            var jogoApagar = new Jogo
+            {
+                Nome = "God Of War"
+            };
+            app.AdicionarJogo(jogoApagar);
+            app.ApagarJogoPorId(jogoApagar.Id);
+
+            //Exemplo listagem
+            var jogos = app.ListarTodos();
+
+            foreach (var item in jogos)
+            {
+                Console.WriteLine(item.Nome);
+            }
+
         }
     }
 }

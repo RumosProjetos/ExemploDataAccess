@@ -55,7 +55,26 @@
   <ItemGroup>
     <Compile Include="Controller\JogoController.cs" />
     <Compile Include="Dto\JogoDto.cs" />
+    <Compile Include="Migrations\202111131236495_InitialCreate.cs" />
+    <Compile Include="Migrations\202111131236495_InitialCreate.designer.cs">
+      <DependentUpon>202111131236495_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111131252203_PassagemParaIngles.cs" />
+    <Compile Include="Migrations\202111131252203_PassagemParaIngles.designer.cs">
+      <DependentUpon>202111131252203_PassagemParaIngles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111131300290_AdicaoTabelaCategoria.cs" />
+    <Compile Include="Migrations\202111131300290_AdicaoTabelaCategoria.designer.cs">
+      <DependentUpon>202111131300290_AdicaoTabelaCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111131321185_AdicionadoJogoConsole.cs" />
+    <Compile Include="Migrations\202111131321185_AdicionadoJogoConsole.designer.cs">
+      <DependentUpon>202111131321185_AdicionadoJogoConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\Jogo.cs" />
+    <Compile Include="Model\JogoDeConsole.cs" />
     <Compile Include="Model\Plataforma.cs" />
     <Compile Include="Model\PlataformaDBContext.cs" />
     <Compile Include="Program.cs" />
@@ -64,6 +83,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202111131236495_InitialCreate.resx">
+      <DependentUpon>202111131236495_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111131252203_PassagemParaIngles.resx">
+      <DependentUpon>202111131252203_PassagemParaIngles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111131300290_AdicaoTabelaCategoria.resx">
+      <DependentUpon>202111131300290_AdicaoTabelaCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111131321185_AdicionadoJogoConsole.resx">
+      <DependentUpon>202111131321185_AdicionadoJogoConsole.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
