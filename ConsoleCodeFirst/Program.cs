@@ -13,17 +13,19 @@ namespace ConsoleCodeFirst
             //ExemploAdicao
             var jogoNovo = new Jogo
             {
-                Nome = "God Of War"
+                Nome = "God Of War",
+                Finalizado = true,
+                DataLancamento = DateTime.Now
             };
             app.AdicionarJogo(jogoNovo);
 
             //Exemplo Edição
-            app.AtualizarJogo(jogoNovo.Id, new Dto.JogoDto { Nome = "Deus da Guerra", Categoria = "Ação" });
+            app.AtualizarJogo(jogoNovo.Id, new Dto.JogoDto { Nome = "Deus da Guerra", Categoria = "Ação"            });
 
             //Exemplo apagar
             var jogoApagar = new Jogo
             {
-                Nome = "God Of War"
+                Nome = "God Of War 2"
             };
             app.AdicionarJogo(jogoApagar);
             app.ApagarJogoPorId(jogoApagar.Id);

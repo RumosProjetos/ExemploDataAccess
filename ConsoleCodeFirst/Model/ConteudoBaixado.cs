@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleCodeFirst.Model
 {
-    [Table("ConsoleGames")]
-    public class JogoDeConsole : Jogo
+    [Table("DownloadContents")]
+    public class ConteudoBaixado
     {
-        public bool MidiaFisica { get; set; }
-        public string CaminhoFoto { get; set; }
+        public Guid Id { get; set; }
+        public Guid JogoId { get; set; }
+        public string Descricao { get; set; }
     }
 }

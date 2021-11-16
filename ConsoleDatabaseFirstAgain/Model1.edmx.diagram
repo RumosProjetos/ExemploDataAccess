@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="57ccbf57c21441a8848fc5d753eeb092" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.Pessoa" Width="1.5" PointX="0.625" PointY="1.125" />
+        <EntityTypeShape EntityType="Model1.Telefones" Width="1.5" PointX="3" PointY="1.25" />
+        <AssociationConnector Association="Model1.PessoaTelefones" />
+        <AssociationConnector Association="Model1.PessoaPessoa" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.1569230769230767" PointY="3.297587890625" />
+          <ConnectorPoint PointX="1.1569230769230767" PointY="4.0545323350694442" />
+          <ConnectorPoint PointX="2.2840170940170941" PointY="4.0545323350694442" />
+          <ConnectorPoint PointX="2.2840170940170941" PointY="3.380019140625" />
+          <ConnectorPoint PointX="1.6034615384615383" PointY="3.380019140625" />
+          <ConnectorPoint PointX="1.6034615384615383" PointY="3.297587890625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Model1.Produto" Width="1.5" PointX="2.875" PointY="3.625" />
+        <AssociationConnector Association="Model1.PessoaProduto" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

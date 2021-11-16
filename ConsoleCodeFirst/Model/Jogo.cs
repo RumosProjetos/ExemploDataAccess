@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,29 +19,19 @@ namespace ConsoleCodeFirst.Model
         [Column("Name")]
         public string Nome { get; set; }
 
-        //[MaxLength(50)]
-        //[Column("Category")]
-        //public string TipoJogo { get; set; }
-
-        //ChaveCandidata
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("Position")]
-        public int Posicao { get; set; }
+        public int? Posicao { get; set; }
 
         public virtual Plataforma Plataforma { get; set; }
-        public virtual Categoria Categoria { get; set; }
+        
+
+        [Column("ReleaseDate")]
+        public DateTime? DataLancamento { get; set; }
+
+        public bool Finalizado { get; set; }
 
 
-
-        //[Timestamp]
-        //public byte[] RowVersion { get; set; }
-
-        //[Phone]
-        //[EmailAddress]
-        //public string Telefone { get; set; } //.com, @ ...
-
-
-        //[Column("ReleaseDate")]
-        //public DateTime DataLancamento { get; set; }
+        public virtual List<Categoria> Categoria { get; set; }
     }
 }

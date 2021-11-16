@@ -71,12 +71,35 @@
     <Compile Include="Migrations\202111131321185_AdicionadoJogoConsole.designer.cs">
       <DependentUpon>202111131321185_AdicionadoJogoConsole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111161925253_CriacaoHistorico.cs" />
+    <Compile Include="Migrations\202111161925253_CriacaoHistorico.designer.cs">
+      <DependentUpon>202111161925253_CriacaoHistorico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111161947451_AlteradaTabelaJogos.cs" />
+    <Compile Include="Migrations\202111161947451_AlteradaTabelaJogos.designer.cs">
+      <DependentUpon>202111161947451_AlteradaTabelaJogos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111161958543_AlteradaTabelaGAmesParaNewName.cs" />
+    <Compile Include="Migrations\202111161958543_AlteradaTabelaGAmesParaNewName.designer.cs">
+      <DependentUpon>202111161958543_AlteradaTabelaGAmesParaNewName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111162006532_ADicionadaPropriedadeNaoMapeada.cs" />
+    <Compile Include="Migrations\202111162006532_ADicionadaPropriedadeNaoMapeada.designer.cs">
+      <DependentUpon>202111162006532_ADicionadaPropriedadeNaoMapeada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111162020428_TraducaoIngles.cs" />
+    <Compile Include="Migrations\202111162020428_TraducaoIngles.designer.cs">
+      <DependentUpon>202111162020428_TraducaoIngles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Categoria.cs" />
+    <Compile Include="Model\ConteudoBaixado.cs" />
+    <Compile Include="Model\Jogador.cs" />
     <Compile Include="Model\Jogo.cs" />
     <Compile Include="Model\JogoDeConsole.cs" />
     <Compile Include="Model\Plataforma.cs" />
     <Compile Include="Model\PlataformaDBContext.cs" />
+    <Compile Include="Model\Progresso.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -96,6 +119,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111131321185_AdicionadoJogoConsole.resx">
       <DependentUpon>202111131321185_AdicionadoJogoConsole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111161925253_CriacaoHistorico.resx">
+      <DependentUpon>202111161925253_CriacaoHistorico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111161947451_AlteradaTabelaJogos.resx">
+      <DependentUpon>202111161947451_AlteradaTabelaJogos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111161958543_AlteradaTabelaGAmesParaNewName.resx">
+      <DependentUpon>202111161958543_AlteradaTabelaGAmesParaNewName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111162006532_ADicionadaPropriedadeNaoMapeada.resx">
+      <DependentUpon>202111162006532_ADicionadaPropriedadeNaoMapeada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111162020428_TraducaoIngles.resx">
+      <DependentUpon>202111162020428_TraducaoIngles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="PessoaSet" EntityType="Model1.Store.PessoaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TelefonesSet" EntityType="Model1.Store.TelefonesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProdutoSet" EntityType="Model1.Store.ProdutoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PessoaProduto" EntityType="Model1.Store.PessoaProduto" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PessoaTelefones" Association="Model1.Store.PessoaTelefones">
+      <End Role="Pessoa" EntitySet="PessoaSet" />
+      <End Role="Telefones" EntitySet="TelefonesSet" />
+    </AssociationSet>
+    <AssociationSet Name="PessoaPessoa" Association="Model1.Store.PessoaPessoa">
+      <End Role="Pessoa" EntitySet="PessoaSet" />
+      <End Role="Pessoa1" EntitySet="PessoaSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PessoaProduto_Pessoa" Association="Model1.Store.FK_PessoaProduto_Pessoa">
+      <End Role="Pessoa" EntitySet="PessoaSet" />
+      <End Role="PessoaProduto" EntitySet="PessoaProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PessoaProduto_Produto" Association="Model1.Store.FK_PessoaProduto_Produto">
+      <End Role="Produto" EntitySet="ProdutoSet" />
+      <End Role="PessoaProduto" EntitySet="PessoaProduto" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="PessoaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataNascimento" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ECasadoCom_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TelefonesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pessoa_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProdutoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PessoaProduto">
+    <Key>
+      <PropertyRef Name="Pessoa_Id" />
+      <PropertyRef Name="Produto_Id" />
+    </Key>
+    <Property Name="Pessoa_Id" Type="int" Nullable="false" />
+    <Property Name="Produto_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PessoaTelefones">
+    <End Role="Pessoa" Type="Model1.Store.PessoaSet" Multiplicity="1" />
+    <End Role="Telefones" Type="Model1.Store.TelefonesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Telefones">
+        <PropertyRef Name="Pessoa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PessoaPessoa">
+    <End Role="Pessoa" Type="Model1.Store.PessoaSet" Multiplicity="1" />
+    <End Role="Pessoa1" Type="Model1.Store.PessoaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pessoa1">
+        <PropertyRef Name="ECasadoCom_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PessoaProduto_Pessoa">
+    <End Role="Pessoa" Type="Model1.Store.PessoaSet" Multiplicity="1" />
+    <End Role="PessoaProduto" Type="Model1.Store.PessoaProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PessoaProduto">
+        <PropertyRef Name="Pessoa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PessoaProduto_Produto">
+    <End Role="PessoaProduto" Type="Model1.Store.PessoaProduto" Multiplicity="*" />
+    <End Role="Produto" Type="Model1.Store.ProdutoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PessoaProduto">
+        <PropertyRef Name="Produto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PessoaSet" EntityType="Model1.Pessoa" />
+          <EntitySet Name="TelefonesSet" EntityType="Model1.Telefones" />
+          <AssociationSet Name="PessoaTelefones" Association="Model1.PessoaTelefones">
+            <End Role="Pessoa" EntitySet="PessoaSet" />
+            <End Role="Telefones" EntitySet="TelefonesSet" />
+          </AssociationSet>
+          <AssociationSet Name="PessoaPessoa" Association="Model1.PessoaPessoa">
+            <End Role="Pessoa" EntitySet="PessoaSet" />
+            <End Role="Pessoa1" EntitySet="PessoaSet" />
+          </AssociationSet>
+          <EntitySet Name="ProdutoSet" EntityType="Model1.Produto" />
+          <AssociationSet Name="PessoaProduto" Association="Model1.PessoaProduto">
+            <End Role="Pessoa" EntitySet="PessoaSet" />
+            <End Role="Produto" EntitySet="ProdutoSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" />
+          <Property Name="DataNascimento" Type="String" Nullable="false" />
+          <NavigationProperty Name="Telefones" Relationship="Model1.PessoaTelefones" FromRole="Pessoa" ToRole="Telefones" />
+          <NavigationProperty Name="Pessoa1" Relationship="Model1.PessoaPessoa" FromRole="Pessoa" ToRole="Pessoa1" />
+          <NavigationProperty Name="ECasadoCom" Relationship="Model1.PessoaPessoa" FromRole="Pessoa1" ToRole="Pessoa" />
+          <NavigationProperty Name="Produto" Relationship="Model1.PessoaProduto" FromRole="Pessoa" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Telefones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" Nullable="false" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.PessoaTelefones" FromRole="Telefones" ToRole="Pessoa" />
+        </EntityType>
+        <Association Name="PessoaTelefones">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Telefones" Role="Telefones" Multiplicity="*" />
+        </Association>
+        <Association Name="PessoaPessoa">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="Model1.Pessoa" Role="Pessoa1" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Pessoa" Relationship="Model1.PessoaProduto" FromRole="Produto" ToRole="Pessoa" />
+        </EntityType>
+        <Association Name="PessoaProduto">
+          <End Type="Model1.Pessoa" Role="Pessoa" Multiplicity="*" />
+          <End Type="Model1.Produto" Role="Produto" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="PessoaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Pessoa)">
+        <MappingFragment StoreEntitySet="PessoaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TelefonesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Telefones)">
+        <MappingFragment StoreEntitySet="TelefonesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProdutoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Produto)">
+        <MappingFragment StoreEntitySet="ProdutoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PessoaTelefones" TypeName="Model1.PessoaTelefones" StoreEntitySet="TelefonesSet">
+      <EndProperty Name="Pessoa">
+        <ScalarProperty Name="Id" ColumnName="Pessoa_Id" />
+      </EndProperty>
+      <EndProperty Name="Telefones">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PessoaPessoa" TypeName="Model1.PessoaPessoa" StoreEntitySet="PessoaSet">
+      <EndProperty Name="Pessoa">
+        <ScalarProperty Name="Id" ColumnName="ECasadoCom_Id" />
+      </EndProperty>
+      <EndProperty Name="Pessoa1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PessoaProduto" TypeName="Model1.PessoaProduto" StoreEntitySet="PessoaProduto">
+      <EndProperty Name="Pessoa">
+        <ScalarProperty Name="Id" ColumnName="Pessoa_Id" />
+      </EndProperty>
+      <EndProperty Name="Produto">
+        <ScalarProperty Name="Id" ColumnName="Produto_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

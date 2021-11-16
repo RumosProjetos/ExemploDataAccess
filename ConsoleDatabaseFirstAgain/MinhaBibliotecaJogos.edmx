@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyGameDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ConsoleGames">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MidiaFisica" Type="bit" Nullable="false" />
+          <Property Name="CaminhoFoto" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DownloadContents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="JogoId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Descricao" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Position" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Plataforma_Id" Type="int" />
+          <Property Name="Categoria_Id" Type="int" />
+          <Property Name="ReleaseDate" Type="datetime" />
+          <Property Name="Finalizado" Type="bit" />
+        </EntityType>
+        <EntityType Name="Plataforms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="JogadorId" />
+          </Key>
+          <Property Name="JogadorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar(max)" />
+          <Property Name="DataNascimento" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Progress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Percentual" Type="real" Nullable="false" />
+          <Property Name="JogadoEm" Type="datetime" Nullable="false" />
+          <Property Name="Jogador_JogadorId" Type="uniqueidentifier" />
+        </EntityType>
+        <Association Name="FK_dbo_ConsoleGame_dbo_Games_Id">
+          <End Role="Games" Type="Self.Games" Multiplicity="1" />
+          <End Role="ConsoleGames" Type="Self.ConsoleGames" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsoleGames">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Games_dbo_Category_Categoria_Id">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id">
+          <End Role="Plataforms" Type="Self.Plataforms" Multiplicity="0..1" />
+          <End Role="Games" Type="Self.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plataforms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Plataforma_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Progress_dbo_Players_Jogador_JogadorId">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="Progress" Type="Self.Progress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="JogadorId" />
+            </Principal>
+            <Dependent Role="Progress">
+              <PropertyRef Name="Jogador_JogadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyGameDatabaseModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConsoleGames" EntityType="Self.ConsoleGames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DownloadContents" EntityType="Self.DownloadContents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Plataforms" EntityType="Self.Plataforms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Progress" EntityType="Self.Progress" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_ConsoleGame_dbo_Games_Id" Association="Self.FK_dbo_ConsoleGame_dbo_Games_Id">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="ConsoleGames" EntitySet="ConsoleGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Games_dbo_Category_Categoria_Id" Association="Self.FK_dbo_Games_dbo_Category_Categoria_Id">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id" Association="Self.FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id">
+            <End Role="Plataforms" EntitySet="Plataforms" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Progress_dbo_Players_Jogador_JogadorId" Association="Self.FK_dbo_Progress_dbo_Players_Jogador_JogadorId">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Progress" EntitySet="Progress" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyGameDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="JogadorId" />
+          </Key>
+          <Property Name="JogadorId" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataNascimento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Progress" Relationship="MyGameDatabaseModel.FK_dbo_Progress_dbo_Players_Jogador_JogadorId" FromRole="Players" ToRole="Progress" />
+        </EntityType>
+        <EntityContainer Name="MyGameDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Players" EntityType="Self.Players" />
+          <EntitySet Name="Category" EntityType="MyGameDatabaseModel.Category" />
+          <EntitySet Name="ConsoleGames" EntityType="MyGameDatabaseModel.ConsoleGames" />
+          <EntitySet Name="DownloadContents" EntityType="MyGameDatabaseModel.DownloadContents" />
+          <EntitySet Name="Games" EntityType="MyGameDatabaseModel.Games" />
+          <EntitySet Name="Plataforms" EntityType="MyGameDatabaseModel.Plataforms" />
+          <EntitySet Name="Progress" EntityType="MyGameDatabaseModel.Progress" />
+          <AssociationSet Name="FK_dbo_Games_dbo_Category_Categoria_Id" Association="MyGameDatabaseModel.FK_dbo_Games_dbo_Category_Categoria_Id">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ConsoleGame_dbo_Games_Id" Association="MyGameDatabaseModel.FK_dbo_ConsoleGame_dbo_Games_Id">
+            <End Role="Games" EntitySet="Games" />
+            <End Role="ConsoleGames" EntitySet="ConsoleGames" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id" Association="MyGameDatabaseModel.FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id">
+            <End Role="Plataforms" EntitySet="Plataforms" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Progress_dbo_Players_Jogador_JogadorId" Association="MyGameDatabaseModel.FK_dbo_Progress_dbo_Players_Jogador_JogadorId">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Progress" EntitySet="Progress" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="MyGameDatabaseModel.FK_dbo_Games_dbo_Category_Categoria_Id" FromRole="Category" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="ConsoleGames">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="MidiaFisica" Type="Boolean" Nullable="false" />
+          <Property Name="CaminhoFoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="MyGameDatabaseModel.FK_dbo_ConsoleGame_dbo_Games_Id" FromRole="ConsoleGames" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="DownloadContents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="JogoId" Type="Guid" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Position" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Plataforma_Id" Type="Int32" />
+          <Property Name="Categoria_Id" Type="Int32" />
+          <Property Name="ReleaseDate" Type="DateTime" Precision="3" />
+          <Property Name="Finalizado" Type="Boolean" />
+          <NavigationProperty Name="Category" Relationship="MyGameDatabaseModel.FK_dbo_Games_dbo_Category_Categoria_Id" FromRole="Games" ToRole="Category" />
+          <NavigationProperty Name="ConsoleGames" Relationship="MyGameDatabaseModel.FK_dbo_ConsoleGame_dbo_Games_Id" FromRole="Games" ToRole="ConsoleGames" />
+          <NavigationProperty Name="Plataforms" Relationship="MyGameDatabaseModel.FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id" FromRole="Games" ToRole="Plataforms" />
+        </EntityType>
+        <EntityType Name="Plataforms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Games" Relationship="MyGameDatabaseModel.FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id" FromRole="Plataforms" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Progress">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Percentual" Type="Single" Nullable="false" />
+          <Property Name="JogadoEm" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Jogador_JogadorId" Type="Guid" />
+          <NavigationProperty Name="Players" Relationship="MyGameDatabaseModel.FK_dbo_Progress_dbo_Players_Jogador_JogadorId" FromRole="Progress" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_dbo_Games_dbo_Category_Categoria_Id">
+          <End Type="MyGameDatabaseModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="MyGameDatabaseModel.Games" Role="Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Categoria_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ConsoleGame_dbo_Games_Id">
+          <End Type="MyGameDatabaseModel.Games" Role="Games" Multiplicity="1" />
+          <End Type="MyGameDatabaseModel.ConsoleGames" Role="ConsoleGames" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Games">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConsoleGames">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id">
+          <End Type="MyGameDatabaseModel.Plataforms" Role="Plataforms" Multiplicity="0..1" />
+          <End Type="MyGameDatabaseModel.Games" Role="Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Plataforms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Plataforma_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Progress_dbo_Players_Jogador_JogadorId">
+          <End Type="MyGameDatabaseModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="MyGameDatabaseModel.Progress" Role="Progress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="JogadorId" />
+            </Principal>
+            <Dependent Role="Progress">
+              <PropertyRef Name="Jogador_JogadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyGameDatabaseModelStoreContainer" CdmEntityContainer="MyGameDatabaseEntities">
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="JogadorId" ColumnName="JogadorId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConsoleGames">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.ConsoleGames">
+              <MappingFragment StoreEntitySet="ConsoleGames">
+                <ScalarProperty Name="CaminhoFoto" ColumnName="CaminhoFoto" />
+                <ScalarProperty Name="MidiaFisica" ColumnName="MidiaFisica" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DownloadContents">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.DownloadContents">
+              <MappingFragment StoreEntitySet="DownloadContents">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="JogoId" ColumnName="JogoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.Games">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="Finalizado" ColumnName="Finalizado" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Categoria_Id" ColumnName="Categoria_Id" />
+                <ScalarProperty Name="Plataforma_Id" ColumnName="Plataforma_Id" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Plataforms">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.Plataforms">
+              <MappingFragment StoreEntitySet="Plataforms">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Progress">
+            <EntityTypeMapping TypeName="MyGameDatabaseModel.Progress">
+              <MappingFragment StoreEntitySet="Progress">
+                <ScalarProperty Name="Jogador_JogadorId" ColumnName="Jogador_JogadorId" />
+                <ScalarProperty Name="JogadoEm" ColumnName="JogadoEm" />
+                <ScalarProperty Name="Percentual" ColumnName="Percentual" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

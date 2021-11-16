@@ -19,5 +19,7 @@ namespace ConsoleCodeFirst.Model
         [MaxLength(255)]
         [Column("Name")]
         public string Nome { get; set; }
+
+        public virtual List<Jogo> Jogos { get; set; }
     }
 }

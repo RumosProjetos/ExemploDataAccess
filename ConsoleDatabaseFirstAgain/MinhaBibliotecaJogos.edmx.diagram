@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bd21cd76255e4a4baf6ae3401d6a283f" Name="Diagram1">
+        <EntityTypeShape EntityType="MyGameDatabaseModel.Players" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.Category" Width="1.5" PointX="3.75" PointY="8" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.ConsoleGames" Width="1.5" PointX="8.25" PointY="4.875" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.DownloadContents" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.Games" Width="1.5" PointX="6" PointY="4.375" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.Plataforms" Width="1.5" PointX="3.75" PointY="5" />
+        <EntityTypeShape EntityType="MyGameDatabaseModel.Progress" Width="1.5" PointX="5.375" PointY="0.75" />
+        <AssociationConnector Association="MyGameDatabaseModel.FK_dbo_Games_dbo_Category_Categoria_Id" />
+        <AssociationConnector Association="MyGameDatabaseModel.FK_dbo_ConsoleGame_dbo_Games_Id" />
+        <AssociationConnector Association="MyGameDatabaseModel.FK_dbo_Jogos_dbo_Plataformas_Plataforma_Id" />
+        <AssociationConnector Association="MyGameDatabaseModel.FK_dbo_Progress_dbo_Players_Jogador_JogadorId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

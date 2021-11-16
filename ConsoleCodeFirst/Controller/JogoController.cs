@@ -49,9 +49,9 @@ namespace ConsoleCodeFirst.Controller
             var jogo = dbContext.Jogos.FirstOrDefault(x => x.Id == id);
             jogo.Nome = jogoDto.Nome;
             
-            //TODO: Corrigir bug categoria ....
-            var categoria = dbContext.Categorias.FirstOrDefault(x => x.Nome == jogoDto.Categoria);
-            jogo.Categoria = categoria;
+            ////TODO: Corrigir bug categoria ....
+            //var categoria = dbContext.Categorias.FirstOrDefault(x => x.Nome == jogoDto.Categoria);
+            //jogo.Categoria = categoria;
 
             dbContext.SaveChanges();
         }

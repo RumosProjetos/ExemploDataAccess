@@ -19,6 +19,10 @@
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
+
+            //context.Plataformas.Add(new Model.Plataforma { Nome = "Playstation" });
+            //context.Plataformas.Add(new Model.Plataforma { Nome = "Xbox" });
+
         }
     }
 }
